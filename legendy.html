@@ -16,14 +16,34 @@
   <header class="site-header">
     <div class="wrap header-inner">
       <div class="logo">The Witcher</div>
-      <nav aria-label="Main">
+
+      <nav aria-label="Main" class="nav-desktop">
         <ul>
           <li><a href="index.html">Головна</a></li>
           <li><a class="active" href="legendy.html">Легенди</a></li>
           <li><a href="contacts.html">Контакти</a></li>
         </ul>
       </nav>
+
+      <button
+        class="hamburger"
+        id="hamburger"
+        aria-label="Відкрити меню"
+        aria-controls="mobile-menu"
+        aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
+
+    <div class="backdrop" id="backdrop" hidden></div>
+
+    <nav id="mobile-menu" class="nav-drawer" aria-label="Мобільне меню">
+      <ul>
+        <li><a href="index.html">Головна</a></li>
+        <li><a class="active" href="legendy.html">Легенди</a></li>
+        <li><a href="contacts.html">Контакти</a></li>
+      </ul>
+    </nav>
   </header>
 
   <main>
@@ -32,6 +52,14 @@
 
       <div class="stage">
         <div class="hero">
+          <img class="img-main"
+               src="https://images.unsplash.com/photo-1753709697924-3f30695a50d7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1169"
+               alt="Старовинний замок у сутінках" />
+
+          <img class="img-portrait"
+               src="https://plus.unsplash.com/premium_photo-1661319080784-07a6aaa9cbbb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
+               alt="Портрет warrior" />
+
           <div class="card" role="region" aria-labelledby="card-title">
             <div id="card-title">Хроніки й легенди</div>
             <div id="card-text">
@@ -42,14 +70,6 @@
             </div>
             <a class="btn" href="#list" aria-label="Перейти до списку легенд">Переглянути</a>
           </div>
-
-          <img class="img-main"
-               src="https://images.unsplash.com/photo-1753709697924-3f30695a50d7?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1169"
-               alt="Старовинний замок у сутінках" />
-
-          <img class="img-portrait"
-               src="https://plus.unsplash.com/premium_photo-1661319080784-07a6aaa9cbbb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
-               alt="Портрет warrior" />
         </div>
 
         <div class="wrap" style="margin-top:20px; max-width:1100px;">
@@ -66,7 +86,7 @@
 
             <article class="legend-item">
               <h3>3. Пісня невідомої</h3>
-              <p>Неймовірна мелодія приводила пастухів до снів, де вони бачили майбутнє. Дехто повертався іншим людиною.</p>
+              <p>Неймовірна мелодія приводила пастухів до снів, де вони бачили майбутнє. Дехто повертався іншою людиною.</p>
             </article>
 
             <p style="margin-top:14px; color:rgba(246,233,208,0.85); font-style:italic;">
@@ -74,7 +94,6 @@
             </p>
           </div>
         </div>
-
       </div>
     </section>
   </main>
@@ -83,5 +102,25 @@
     Архів легенд — зібрання мандруючих оповідачів та майстрів.
   </footer>
 
+  <script>
+  (function(){
+    const btn = document.getElementById('hamburger');
+    const drawer = document.getElementById('mobile-menu');
+    const backdrop = document.getElementById('backdrop');
+    if(!btn || !drawer || !backdrop) return;
+
+    const open = () => { document.body.classList.add('drawer-open'); btn.setAttribute('aria-expanded','true'); backdrop.hidden = false; };
+    const close = () => { document.body.classList.remove('drawer-open'); btn.setAttribute('aria-expanded','false'); backdrop.hidden = true; };
+
+    btn.addEventListener('click', () => document.body.classList.contains('drawer-open') ? close() : open());
+    backdrop.addEventListener('click', close);
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', close));
+    window.addEventListener('keydown', e => { if(e.key==='Escape') close(); });
+
+    const mq = window.matchMedia('(min-width: 721px)');
+    const onChange = e => { if(e.matches) close(); };
+    mq.addEventListener ? mq.addEventListener('change', onChange) : mq.addListener(onChange);
+  })();
+  </script>
 </body>
 </html>
