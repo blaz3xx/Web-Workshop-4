@@ -1,3 +1,7 @@
+/* ===============================================
+  ВАШІ ОРИГІНАЛЬНІ СТИЛІ (з невеликими змінами)
+  ===============================================
+*/
 :root{
   /* Темна, пергаментно-металеві відтінки для "Відьмака" */
   --bg: #0b0b0b;
@@ -39,6 +43,11 @@ body{
   -moz-osx-font-smoothing:grayscale;
   line-height:1.5;
   background-attachment:fixed;
+}
+
+/* Блокування скролу, коли меню відкрите */
+body.nav-open {
+  overflow: hidden;
 }
 
 body::before{
@@ -85,8 +94,8 @@ main{flex:1; display:block}
   opacity:0.95;
 }
 
-nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
-nav a{
+.desktop-nav ul{display:flex;gap:28px;list-style:none;margin:0;padding:0}
+.desktop-nav a{
   color: rgba(230,220,196,0.95);
   text-decoration:none;
   font-weight:500;
@@ -94,7 +103,7 @@ nav a{
   padding:6px 8px;
   border-radius:6px;
 }
-nav a:hover{
+.desktop-nav a:hover{
   color:var(--accent);
   background: rgba(255,210,120,0.03);
   text-decoration:none;
@@ -259,6 +268,103 @@ nav a:hover{
   font-family: "Cormorant Garamond", serif;
 }
 
+/* ===============================================
+  НОВІ СТИЛІ ДЛЯ МОБІЛЬНОГО МЕНЮ (як на фото)
+  ===============================================
+*/
+
+/* Кнопка-гамбургер */
+#menu-toggle {
+  display: none; /* Сховано за замовчуванням */
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  z-index: 1001;
+}
+#menu-toggle span {
+  width: 30px;
+  height: 3px;
+  background: var(--text); /* Колір ліній */
+  border-radius: 2px;
+  transition: all 0.3s linear;
+}
+
+/* Оверлей мобільного меню */
+#mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.95); /* Темний фон, як на фото */
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+  /* Сховано за замовчуванням */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-100%);
+  transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+}
+
+#mobile-nav.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Кнопка 'X' (Закрити) */
+#close-menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: var(--text);
+  font-size: 40px;
+  font-weight: 300;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* Посилання в мобільному меню */
+#mobile-nav nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+#mobile-nav nav a {
+  font-family: "Cinzel", serif;
+  font-size: 28px;
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px;
+  display: block;
+  transition: color 0.2s ease;
+}
+#mobile-nav nav a:hover {
+  color: var(--accent); /* Колір акценту при наведенні */
+}
+    
+
+/* ===============================================
+  МЕДІА-ЗАПИТИ (АДАПТАЦІЯ)
+  ===============================================
+*/
+
 @media (max-width: 1100px){
   .wrap{padding:0 20px}
   .stage{padding-left:20px;padding-right:20px}
@@ -275,21 +381,99 @@ nav a:hover{
   .card{max-width:calc(100% - (var(--portrait-w) + 40px))}
 }
 
+/*
+  ОСНОВНА МОБІЛЬНА АДАПТАЦІЯ
+  Тут відбуваються зміни, які ви просили (як на фото)
+*/
 @media (max-width: 820px){
-  .img-portrait{display:none}
-  .card{
-    justify-self:center;
-    align-self:auto;
-    margin-top:20px;
-    margin-right:0;
-    max-width:680px; width:100%;
+  /* --- ХЕДЕР --- */
+  .desktop-nav {
+    display: none; /* Ховаємо десктопну навігацію */
   }
-  .stage{padding-top:120px}
-  .band{height:210px}
+  #menu-toggle {
+    display: flex; /* Показуємо гамбургер */
+  }
+
+  /* --- СЕКЦІЯ HERO --- */
+  .stage {
+    padding-top: 0; /* Зображення тепер вгорі */
+    margin-bottom: 60px; /* Відступ знизу */
+    padding-left: 0; /* Без бічних відступів */
+    padding-right: 0;
+  }
+  
+  .band {
+    display: none; /* Ховаємо темну смугу, вона не потрібна */
+  }
+  
+  .hero {
+    display: block; /* Скидаємо grid-лейаут */
+  }
+  
+  .img-main {
+    /* Перше зображення - на всю ширину, як на фото */
+    width: 100%;
+    min-width: 100%;
+    border-radius: 0; /* Без заокруглень, від краю до краю */
+    box-shadow: none;
+    
+    /* Скидаємо всі десктопні позиціонування */
+    z-index: 1;
+    margin: 0;
+    transform: none;
+    filter: none;
+    border: none;
+  }
+
+  .img-portrait {
+    /* Друге зображення - показуємо його */
+    display: block !important; /* Важливо, щоб перебити старий стиль */
+    position: relative; 
+    z-index: 2; /* Має бути над картою */
+    
+    /* Відцентрувати і задати ширину (не 100%) */
+    width: 90%; 
+    max-width: 400px; /* Обмеження, щоб не було завеликим */
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Створення ефекту "накладання" */
+    margin-top: -80px; /* Піднімаємо вгору */
+    
+    /* Скидання десктопних стилів */
+    transform: translateX(0); /* Скидаємо зсув X */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  }
+
+  .card {
+    /* Картка - теж по центру, під другим фото */
+    position: relative;
+    z-index: 3; /* Найвищий елемент */
+    
+    /* Відцентрувати і задати ширину */
+    width: 90%;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    
+    /* Ефект накладання на друге фото */
+    margin-top: -60px; /* Накладається на .img-portrait */
+    
+    /* Скидання десктопних стилів */
+    justify-self: auto;
+    align-self: auto;
+  }
+
+  /* Спрощення футера */
+  .footer {
+    margin-top: 20px;
+    padding: 24px 16px;
+  }
 }
 
 @media (max-width: 520px){
   #card-title{font-size:28px}
   .card{padding:22px}
-  nav ul{gap:18px}
+  
+  .desktop-nav ul{gap:18px}
 }
