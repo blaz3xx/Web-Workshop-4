@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Відьмак — Хроніки (Адаптовано)</title>
+  <title>Відьмак — Хроніки</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,34 +17,31 @@
     <div class="wrap header-inner">
       <div class="logo">The witcher</div>
 
-      <nav class="desktop-nav" aria-label="Main">
+      <!-- Тоглер для мобільного меню (CSS-only) -->
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+      <label for="nav-toggle" class="hamburger" aria-label="Відкрити меню" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </label>
+
+      <!-- Настільне меню -->
+      <nav aria-label="Main" class="nav-desktop">
         <ul>
           <li><a href="index.html">Головна</a></li>
           <li><a href="legendy.html">Легенди</a></li>
           <li><a href="contacts.html">Контакти</a></li>
         </ul>
       </nav>
-
-      <button id="menu-toggle" aria-label="Відкрити меню" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
     </div>
-  </header>
 
-  <div id="mobile-nav">
-    <button id="close-menu" aria-label="Закрити меню">&times;</button>
-    <nav>
+    <!-- Мобільне меню (опційно розкривається по кліку на іконку) -->
+    <nav id="mobile-menu" class="nav-drawer" aria-label="Мобільне меню">
       <ul>
         <li><a href="index.html">Головна</a></li>
         <li><a href="legendy.html">Легенди</a></li>
         <li><a href="contacts.html">Контакти</a></li>
       </ul>
     </nav>
-  </div>
-
+  </header>
 
   <main>
     <section class="hero-wrap">
@@ -52,6 +49,16 @@
 
       <div class="stage">
         <div class="hero">
+          <!-- 1) Накладені фото -->
+          <img class="img-main"
+               src="https://wallup.net/wp-content/uploads/2017/11/24/533685-forest-mist-Oncol_Park-748x499.jpg"
+               alt="Темний ліс при місяці — атмосфера пригоди" />
+
+          <img class="img-portrait"
+               src="https://i.pinimg.com/1200x/33/76/2b/33762b3356e895ea9484183bd34c75da.jpg"
+               alt="Мандрівник із мечем — портрет мисливця на чудовиськ" />
+
+          <!-- 2) Блок із текстом (окремо після фото на мобільному) -->
           <div class="card" role="region" aria-labelledby="card-title">
             <div id="card-title">Відьмак: Шлях найманця</div>
             <div id="card-text">
@@ -63,14 +70,6 @@
             </div>
             <a class="btn" href="legendy.html" aria-label="Перейти до легенд">Читати легенди</a>
           </div>
-
-          <img class="img-main"
-               src="https://wallup.net/wp-content/uploads/2017/11/24/533685-forest-mist-Oncol_Park-748x499.jpg"
-               alt="Темний ліс при місяці — атмосфера пригоди" />
-
-          <img class="img-portrait"
-               src="https://i.pinimg.com/1200x/33/76/2b/33762b3356e895ea9484183bd34c75da.jpg"
-               alt="Мандрівник із мечем — портрет мисливця на чудовиськ" />
         </div>
       </div>
     </section>
@@ -79,8 +78,6 @@
   <footer class="footer">
     «Ніч приховує і правду, і пастку.» — Хроніки мандрів
   </footer>
-
-  <script src="script.js" defer></script>
 
 </body>
 </html>
